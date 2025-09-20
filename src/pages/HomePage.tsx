@@ -34,12 +34,12 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => (
 
 const HomePage: React.FC = () => {
     const books: Book[] = [
-        { id: 1, imageUrl: 'https://img.freepik.com/foto-gratis/composicion-libros-coloridos-sobre-mesa-blanca_23-2147844621.jpg?w=900', category: 'Ficción', title: 'El Laberinto de Sombras', author: 'Ana Morales', price: 'S/ 59.90' },
-        { id: 2, imageUrl: 'https://img.freepik.com/foto-gratis/libros-antiguos-dispuestos-sobre-superficie-madera-generados-ia_188544-27038.jpg?w=1060', category: 'No Ficción', title: 'Código Limpio', author: 'Robert C. Martin', price: 'S/ 89.90' },
-        { id: 3, imageUrl: 'https://img.freepik.com/foto-gratis/pila-libros-tapa-dura-generados-ia_188544-29837.jpg?w=1060', category: 'Ciencia Ficción', title: 'Crónicas de Marte', author: 'Ray Bradbury', price: 'S/ 65.00' },
-        { id: 4, imageUrl: 'https://img.freepik.com/foto-gratis/pila-libros-sobre-fondo-colorido-ia-generativa_169016-29177.jpg?w=1060', category: 'Misterio', title: 'La Sombra del Viento', author: 'Carlos Ruiz Zafón', price: 'S/ 75.50' },
-        { id: 5, imageUrl: 'https://img.freepik.com/foto-gratis/libros-colores-sobre-mesa-madera_23-2147844618.jpg?w=900', category: 'Fantasía', title: 'El Nombre del Viento', author: 'Patrick Rothfuss', price: 'S/ 82.00' },
-        { id: 6, imageUrl: 'https://img.freepik.com/foto-gratis/coleccion-libros-antiguos-polvo-estante-madera-generados-ia_188544-29323.jpg?w=1060', category: 'Desarrollo Personal', title: 'Hábitos Atómicos', author: 'James Clear', price: 'S/ 95.00' },
+        { id: 1, imageUrl: 'https://static.vecteezy.com/system/resources/previews/005/377/487/non_2x/cartoon-doodle-book-isolated-on-white-background-education-hand-drawn-icon-free-vector.jpg', category: 'Ficción', title: 'El Laberinto de Sombras', author: 'Ana Morales', price: 'S/ 59.90' },
+        { id: 2, imageUrl: 'https://www.comunidadbaratz.com/wp-content/uploads/Conoces-los-detalles-para-que-tu-libro-sea-el-pr%C3%83%C2%B3ximo-bestseller-mundial-1.jpg', category: 'No Ficción', title: 'Código Limpio', author: 'Robert C. Martin', price: 'S/ 89.90' },
+        { id: 3, imageUrl: 'https://www.planetadelibros.com/usuaris/libros/fotos/299/original/portada_cronicas-marcianas_ray-bradbury_201906251540.jpg', category: 'Ciencia Ficción', title: 'Crónicas de Marte', author: 'Ray Bradbury', price: 'S/ 65.00' },
+        { id: 4, imageUrl: 'https://www.planetadelibros.com/usuaris/libros/fotos/330/original/portada_la-sombra-del-viento-20-aniversario_carlos-ruiz-zafon_202103111500.jpg', category: 'Misterio', title: 'La Sombra del Viento', author: 'Carlos Ruiz Zafón', price: 'S/ 75.50' },
+        { id: 5, imageUrl: 'https://www.penguinlibros.com/pe/6472679-medium_default/el-nombre-del-viento-td-cronica-del-asesino-de-reyes-1.jpg', category: 'Fantasía', title: 'El Nombre del Viento', author: 'Patrick Rothfuss', price: 'S/ 82.00' },
+        { id: 6, imageUrl: 'https://blog.davidtorne.com/wp-content/uploads/2020/04/habits-atomics.jpg', category: 'Desarrollo Personal', title: 'Hábitos Atómicos', author: 'James Clear', price: 'S/ 95.00' },
     ];
 
     return (
@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <img src="https://img.freepik.com/foto-gratis/mujer-joven-que-trabaja-ideas-nuevas-computadora-portatil_23-2147981268.jpg?w=1060" alt="Lectora feliz" className="rounded-lg shadow-2xl"/>
+                        <img src="https://i.ibb.co/WWnD84Mg/generated.webp" alt="Lectora feliz" className="rounded-lg shadow-2xl"/>
                     </div>
                 </div>
             </section>

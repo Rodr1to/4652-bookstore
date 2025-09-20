@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ setPage }) => {
             className="text-2xl font-bold text-custom-dark-blue cursor-pointer"
             onClick={() => setPage('home')}
           >
-            Bookstore<span className="text-custom-purple">Club</span>
+            Tinta y Papel <span className="text-custom-purple">Store</span>
           </div>
           <nav className="hidden md:flex space-x-8">
             <a href="#" onClick={(e) => { e.preventDefault(); setPage('home'); }} className="text-gray-600 hover:text-custom-purple transition-colors duration-300 font-semibold">Inicio</a>

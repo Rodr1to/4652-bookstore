@@ -1,30 +1,19 @@
 import React from 'react';
+import type { Book } from '../types/Libro';
 
-interface Book {
-  id: number;
-  imageUrl: string;
-  category: string;
-  title: string;
-  author: string;
-  price: string;
-}
-
-interface BookCardProps {
-  book: Book;
-}
-
-const BookCard: React.FC<BookCardProps> = ({ book }) => (
+// El componente BookCard no necesita cambios.
+const BookCard: React.FC<{ book: Book }> = ({ book }) => (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden group transition-transform duration-300 hover:-translate-y-2 border border-gray-100">
       <div className="overflow-hidden">
         <img src={book.imageUrl} alt={book.title} className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" />
       </div>
       <div className="p-6">
-        <span className="text-sm font-semibold text-custom-purple">{book.category}</span>
-        <h4 className="text-xl font-bold text-custom-dark-blue mt-2 mb-1 truncate">{book.title}</h4>
-        <p className="text-custom-gray mb-4">por {book.author}</p>
+        <span className="text-sm font-semibold text-brand-green">{book.category}</span>
+        <h4 className="text-xl font-bold text-brand-dark mt-2 mb-1 truncate">{book.title}</h4>
+        <p className="text-brand-gray mb-4">por {book.author}</p>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-extrabold text-custom-dark-blue">{book.price}</span>
-          <button className="bg-custom-orange text-white font-semibold py-2 px-4 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="text-2xl font-extrabold text-brand-dark">{book.price}</span>
+          <button className="bg-brand-lime text-brand-dark font-semibold py-2 px-4 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Ver más
           </button>
         </div>
@@ -43,30 +32,56 @@ const HomePage: React.FC = () => {
     ];
 
     return (
-        <div className="font-jakarta bg-custom-light-gray min-h-2000px">
-            <section className="bg-white py-24 px-4">
+        <div className="font-jakarta bg-brand-light-gray min-h-2000px">
+            <section className="bg-brand-green text-white py-32 px-4">
                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="text-left">
-                        <h1 className="text-5xl md:text-6xl font-extrabold text-custom-dark-blue mb-6 leading-tight">Descubre tu Próxima Gran Lectura</h1>
-                        <p className="text-lg text-custom-gray mb-10">Explora un universo de historias, conocimiento y aventuras. En nuestra librería, cada libro es una puerta a un nuevo mundo.</p>
+                        <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">La mejor plataforma para amantes de la lectura.</h1>
+                        <p className="text-lg text-gray-300 mb-10">Cursos online de los mejores autores. Únete a 17 millones de lectores hoy.</p>
                         <div className="flex items-center gap-4">
-                            <button className="bg-custom-purple text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-opacity-90 transition-all">Explorar Libros</button>
-                            <button className="text-custom-dark-blue font-bold group flex items-center">
-                                <span>Ver Categorías</span>
+                            <button className="bg-brand-lime text-brand-dark font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition-transform">Empezar ahora</button>
+                            <button className="text-white font-bold group flex items-center">
+                                <span>Cómo funciona</span>
                                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </button>
                         </div>
                     </div>
                     <div>
-                        <img src="https://i.ibb.co/WWnD84Mg/generated.webp" alt="Lectora feliz" className="rounded-lg shadow-2xl"/>
+                        {/* IMAGEN PRINCIPAL ACTUALIZADA */}
+                        <img 
+                            src="https://i.ibb.co/WWnD84Mg/generated.webp" 
+                            alt="Libro antiguo con pluma, representando la escritura y la lectura" 
+                            className="rounded-lg shadow-2xl ring-1 ring-white/10"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-white py-20 px-4">
+                <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+                    <div>
+                        <h3 className="text-2xl font-bold text-brand-dark">Garantizado y verificado</h3>
+                        <p className="text-brand-gray mt-2">Contenido de la más alta calidad, curado por expertos.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-brand-dark">Horario flexible</h3>
+                        <p className="text-brand-gray mt-2">Aprende a tu propio ritmo, en cualquier momento y lugar.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-brand-dark">Para todos los bolsillos</h3>
+                        <p className="text-brand-gray mt-2">Planes accesibles para que nunca dejes de aprender.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-brand-dark">Instructores expertos</h3>
+                        <p className="text-brand-gray mt-2">Aprende directamente de los mejores autores y críticos.</p>
                     </div>
                 </div>
             </section>
 
             <section className="py-20 px-4">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl font-bold text-center text-custom-dark-blue mb-2">Libros Destacados</h2>
-                    <p className="text-center text-custom-gray mb-12">Seleccionados por nuestros expertos para inspirarte.</p>
+                    <h2 className="text-4xl font-bold text-center text-brand-dark mb-2">Libros Destacados</h2>
+                    <p className="text-center text-brand-gray mb-12">Seleccionados por nuestros expertos para inspirarte.</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {books.map(book => (
                             <BookCard key={book.id} book={book} />
@@ -78,5 +93,4 @@ const HomePage: React.FC = () => {
     );
 }
 
-export default HomePage
-
+export default HomePage;

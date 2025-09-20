@@ -7,11 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'custom-purple': '#6633FF',
-        'custom-orange': '#FF6B00',
-        'custom-dark-blue': '#1E293B',
-        'custom-gray': '#64748B',
-        'custom-light-gray': '#F8FAFC',
+        'brand-green': '#0d4a3a',
+        'brand-lime': '#c2e822',
+        'brand-dark': '#1e293b',
+        'brand-gray': '#64748B',
+        'brand-light-gray': '#f0f3f2',
+        'brand-dark-footer': '#1c1c1c',
       },
       fontFamily: {
         'jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],

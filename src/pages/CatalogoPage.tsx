@@ -87,4 +87,4 @@ const CatalogoPage: React.FC<CatalogoPageProps> = ({ setPage }) => {
   );
 };
 
-export default CatalogoPage;
+export default CatalogoPage

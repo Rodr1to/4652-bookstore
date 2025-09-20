@@ -32,4 +32,4 @@ const Header: React.FC<HeaderProps> = ({ setPage }) => {
   );
 };
 
-export default Header;
+export default Header

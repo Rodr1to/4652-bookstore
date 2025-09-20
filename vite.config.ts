@@ -1,20 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite' // <-- Importamos el plugin
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
+    tailwindcss(), // <-- Le decimos a Vite que lo use
   ],
   server: {
     proxy: {
-      // Redirige las peticiones de /api a tu servidor web
       '/api': {
         target: 'https://rovalverde.alwaysdata.net',
         changeOrigin: true,
-        // Reescribe la ruta para quitar /api
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }

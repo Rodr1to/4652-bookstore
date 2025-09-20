@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// Tipos para los props y los datos de la API
 interface CatalogoPageProps {
   setPage: (page: 'home' | 'catalogo') => void;
 }
@@ -20,7 +19,6 @@ const CatalogoPage: React.FC<CatalogoPageProps> = ({ setPage }) => {
   useEffect(() => {
     const fetchLibros = async () => {
       try {
-        // Usamos la ruta del proxy /api
         const response = await fetch('/api/libros.php');
         if (!response.ok) {
           throw new Error(`Error en la respuesta del servidor: ${response.statusText}`);

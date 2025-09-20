@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Interfaz para el objeto Book
 interface Book {
   id: number;
   imageUrl: string;
@@ -10,7 +9,6 @@ interface Book {
   price: string;
 }
 
-// Interfaz para los props del componente BookCard
 interface BookCardProps {
   book: Book;
 }
@@ -46,7 +44,6 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="font-jakarta bg-custom-light-gray min-h-2000px">
-            {/* Hero Section */}
             <section className="bg-white py-24 px-4">
                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="text-left">
@@ -66,7 +63,6 @@ const HomePage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Featured Books Section */}
             <section className="py-20 px-4">
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-4xl font-bold text-center text-custom-dark-blue mb-2">Libros Destacados</h2>
@@ -83,3 +79,4 @@ const HomePage: React.FC = () => {
 }
 
 export default HomePage;
+

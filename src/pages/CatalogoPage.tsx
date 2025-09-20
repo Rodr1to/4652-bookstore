@@ -32,44 +32,44 @@ const CatalogoPage: React.FC<CatalogoPageProps> = ({ setPage }) => {
   }, []);
 
   return (
-    <div className="bg-gray-50 font-jakarta min-h-screen py-12">
+    <div className="bg-white font-jakarta min-h-screen py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <button
                 onClick={() => setPage('home')}
-                className="mb-8 bg-white text-custom-dark-blue font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all flex items-center"
+                className="mb-8 bg-white text-brand-dark font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all flex items-center border border-gray-200"
             >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Volver al inicio
             </button>
 
-            <h1 className="text-4xl font-extrabold text-custom-dark-blue mb-8">Catálogo Completo de Libros</h1>
+            <h1 className="text-4xl font-extrabold text-brand-dark mb-8">Catálogo Completo de Libros</h1>
             
-            <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+            <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
                 {loading && <p className="p-6 text-center text-gray-500">Cargando libros...</p>}
                 {error && <p className="p-6 text-center text-red-500 font-semibold">{`Error al cargar los datos: ${error}`}</p>}
                 
                 {!loading && !error && (
                     <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-100">
+                        <table className="min-w-full">
+                            <thead className="bg-brand-light-gray border-b border-gray-200">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Título</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Autor</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Editorial</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Sinopsis</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Fecha Pub.</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Precio</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Título</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Autor</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Editorial</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Sinopsis</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Fecha Pub.</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Precio</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
+                            <tbody className="divide-y divide-gray-200">
                                 {libros.map((libro) => (
-                                    <tr key={libro.id} className="hover:bg-gray-50 transition-colors">
+                                    <tr key={libro.id} className="hover:bg-lime-50 transition-colors duration-200">
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{libro.titulo}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.autor}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.editorial}</td>
                                         <td className="px-6 py-4 text-sm text-gray-700 max-w-xs truncate" title={libro.sinopsis}>{libro.sinopsis}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.fecha_publicacion}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-custom-purple">S/ {libro.precio}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-brand-green">S/ {libro.precio}</td>
                                     </tr>
                                 ))}
                             </tbody>

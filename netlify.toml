@@ -1,0 +1,11 @@
+# Archivo de configuración para Netlify
+
+[[redirects]]
+  # La ruta que tu aplicación solicita
+  from = "/api/*"
+  # El servidor real al que debe redirigir la solicitud
+  to = "https://rovalverde.alwaysdata.net/:splat"
+  # Status 200 lo convierte en una reescritura (proxy), no en una redirección
+  status = 200
+
+  

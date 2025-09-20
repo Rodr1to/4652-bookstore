@@ -9,7 +9,7 @@ const Header: React.FC<HeaderProps> = ({ setPage }) => {
     <header className="bg-white shadow-md sticky top-0 z-50 font-jakarta">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div 
+          <div
             className="text-2xl font-bold text-custom-dark-blue cursor-pointer"
             onClick={() => setPage('home')}
           >

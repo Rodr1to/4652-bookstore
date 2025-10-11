@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import type { LibroAPI } from '../types/Estructuras';
 import { useCarrito } from '../context/CarritoContext';
 
@@ -11,6 +11,7 @@ const LibroDetallesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { agregarAlCarrito } = useCarrito();
+  const navigate = useNavigate(); // Hook para navegar programáticamente
 
   useEffect(() => {
     const fetchLibroDetalles = async () => {
@@ -39,10 +40,14 @@ const LibroDetallesPage: React.FC = () => {
   const handleAgregarClick = () => {
     if (libro) {
       agregarAlCarrito(libro);
-      // Usaremos un método más moderno para notificar al usuario.
-      // Por ahora, un simple console.log para verificar.
-      console.log(`"${libro.titulo}" ha sido añadido al carrito!`);
       alert(`"${libro.titulo}" ha sido añadido al carrito!`);
+    }
+  };
+
+  const handleIrAlCarritoClick = () => {
+    if (libro) {
+      agregarAlCarrito(libro);
+      navigate('/carrito'); // Navega a la página del carrito
     }
   };
 
@@ -109,13 +114,23 @@ const LibroDetallesPage: React.FC = () => {
                     </div>
                 </dl>
             </div>
-             <div className="mt-10">
+             <div className="mt-10 flex items-center gap-4">
                 <button 
                   onClick={handleAgregarClick}
-                  className="w-full bg-brand-lime text-brand-dark font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition-transform text-lg"
+                  className="flex-1 bg-brand-lime text-brand-dark font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition-transform text-lg"
                   disabled={libro.stock === 0}
                 >
                   {libro.stock > 0 ? 'Añadir al carrito' : 'Agotado'}
+                </button>
+                <button
+                  onClick={handleIrAlCarritoClick}
+                  className="bg-brand-dark p-4 rounded-lg shadow-lg hover:scale-105 transition-transform"
+                  disabled={libro.stock === 0}
+                  title="Añadir y ver carrito"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
                 </button>
             </div>
           </div>

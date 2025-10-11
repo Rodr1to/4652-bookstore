@@ -38,7 +38,7 @@ const TiendaPage: React.FC = () => {
     setLoadingLibros(true);
     setLibros([]);
     try {
-      const response = await fetch(`/api/libros_por_categoria.php?id_categoria=${idCategoria}`);
+      const response = await fetch(`/api/libros_categoria.php?id_categoria=${idCategoria}`);
       const data = await response.json();
       setLibros(data);
     } catch (error) {

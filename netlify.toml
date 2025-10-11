@@ -1,11 +1,14 @@
 # Archivo de configuración para Netlify
 
+# Regla para el proxy de la API. Esta debe ir PRIMERO.
 [[redirects]]
-  # La ruta que tu aplicación solicita
   from = "/api/*"
-  # El servidor real al que debe redirigir la solicitud
   to = "https://rovalverde.alwaysdata.net/:splat"
-  # Status 200 lo convierte en una reescritura (proxy), no en una redirección
   status = 200
 
-  
+# Regla para Aplicaciones de Página Única (SPA). Esta debe ir AL FINAL.
+# Redirige todas las demás peticiones al index.html para que React Router funcione.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

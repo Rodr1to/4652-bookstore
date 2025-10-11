@@ -1,71 +1,89 @@
-// src/pages/CarritoPage.tsx
+// src/pages/CatalogoPage.tsx
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useCarrito } from '../context/CarritoContext';
+import type { LibroAPI } from '../types/Estructuras';
 
-const API_BASE_URL = 'https://rovalverde.alwaysdata.net/';
+const CatalogoPage: React.FC = () => {
+  const [libros, setLibros] = useState<LibroAPI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const CarritoPage: React.FC = () => {
-  const { items, eliminarDelCarrito, vaciarCarrito } = useCarrito();
+  useEffect(() => {
+    const leerServicio = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/libros.php'); 
+        if (!response.ok) {
+          throw new Error(`Error en la respuesta del servidor: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setLibros(data);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Ocurrió un error desconocido.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    leerServicio();
+  }, []);
 
   return (
-    <div className="bg-brand-light-gray font-jakarta min-h-screen py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-extrabold text-brand-dark mb-8">Mi Carrito de Compras</h1>
-
-        {items.length === 0 ? (
-          <div className="text-center bg-white p-10 rounded-lg shadow-md">
-            <p className="text-lg text-brand-gray mb-6">Tu carrito está vacío.</p>
-            <Link to="/tienda" className="bg-brand-lime text-brand-dark font-bold py-3 px-6 rounded-lg shadow-lg hover:scale-105 transition-transform">
-              Ir a la tienda
+    <div className="bg-white font-jakarta min-h-screen py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Link 
+              to="/" 
+              className="mb-8 bg-white text-brand-dark font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 transition-all flex items-center border border-gray-200 w-fit"
+            >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Volver al inicio
             </Link>
-          </div>
-        ) : (
-          <div>
+
+            <h1 className="text-4xl font-extrabold text-brand-dark mb-8">Catálogo Completo de Libros</h1>
+            
             <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
-              <ul className="divide-y divide-gray-200">
-                {items.map(item => (
-                  <li key={item.id} className="p-4 sm:p-6 flex items-center space-x-4">
-                    <img
-                      src={item.url_portada ? `${API_BASE_URL}${item.url_portada}` : 'https://placehold.co/100x150'}
-                      alt={item.titulo}
-                      className="w-16 h-24 object-cover rounded-md shadow-sm"
-                    />
-                    <div className="flex-grow">
-                      <h3 className="font-bold text-brand-dark">{item.titulo}</h3>
-                      <p className="text-sm text-brand-gray">{item.autor}</p>
-                      <p className="text-md font-bold text-brand-green mt-1">S/ {item.precio}</p>
+                {loading ? (
+                    <div className="animate-pulse">
+                        <div className="bg-brand-light-gray h-12"></div>
+                        <div className="p-4 space-y-4">
+                            {[...Array(10)].map((_, i) => (
+                                <div key={i} className="h-8 bg-gray-200 rounded"></div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="text-center">
-                      <p className="text-sm text-brand-gray mb-2">Cantidad: {item.cantidad}</p>
-                      <button
-                        onClick={() => eliminarDelCarrito(item.id)}
-                        className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 group transition-transform duration-300"
-                        title="Eliminar item"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                ) : error ? (
+                    <p className="p-6 text-center text-red-500 font-semibold">{`Error al cargar los datos: ${error}`}</p>
+                ) : (
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full">
+                            <thead className="bg-brand-light-gray border-b border-gray-200">
+                                <tr>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Título</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Autor</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Editorial</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Fecha Pub.</th>
+                                    <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-brand-dark uppercase tracking-wider">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {libros.map((libro) => (
+                                    <tr key={libro.id} className="hover:bg-lime-50 transition-colors duration-200">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{libro.titulo}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.autor}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.editorial}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{libro.fecha_publicacion}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-brand-green">S/ {libro.precio}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                  </li>
-                ))}
-              </ul>
+                )}
             </div>
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={vaciarCarrito}
-                className="bg-red-600 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:bg-red-700 transition-colors"
-              >
-                Vaciar Carrito
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
     </div>
   );
 };
 
-export default CarritoPage;
+export default CatalogoPage;

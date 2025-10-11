@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import type { LibroAPI } from '../types/Estructuras';
 import { useCarrito } from '../context/CarritoContext';
 
@@ -11,7 +11,7 @@ const LibroDetallesPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { agregarAlCarrito } = useCarrito();
-  const navigate = useNavigate(); // Hook para navegar programáticamente
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLibroDetalles = async () => {
@@ -40,14 +40,14 @@ const LibroDetallesPage: React.FC = () => {
   const handleAgregarClick = () => {
     if (libro) {
       agregarAlCarrito(libro);
-      alert(`"${libro.titulo}" ha sido añadido al carrito!`);
+      // El alert ha sido removido
     }
   };
 
   const handleIrAlCarritoClick = () => {
     if (libro) {
       agregarAlCarrito(libro);
-      navigate('/carrito'); // Navega a la página del carrito
+      navigate('/carrito');
     }
   };
 

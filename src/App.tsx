@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import Header from './components/Header.tsx';
-import Footer from './components/Footer.tsx';
-import HomePage from './pages/HomePage.tsx';
-import CatalogoPage from './pages/CatalogoPage.tsx';
+// src/App.tsx
 
-const App: React.FC = () => {
-  const [page, setPage] = useState<'home' | 'catalogo'>('home');
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './components/MainLayout';
+import HomePage from './pages/HomePage';
+import CatalogoPage from './pages/CatalogoPage';
+import TiendaPage from './pages/TiendaPage'; // Importamos la nueva página
 
+const App = () => {
   return (
-    <>
-      <Header setPage={setPage} />
-      <main>
-        {page === 'home' && <HomePage />}
-        {page === 'catalogo' && <CatalogoPage setPage={setPage} />}
-      </main>
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="catalogo" element={<CatalogoPage />} />
+        <Route path="tienda" element={<TiendaPage />} />
+        {/* Próximamente añadiremos la ruta para los detalles del libro */}
+        {/* <Route path="libro/:idLibro" element={<LibroDetallesPage />} /> */}
+      </Route>
+    </Routes>
   );
 };
 
-export default App
+export default App;

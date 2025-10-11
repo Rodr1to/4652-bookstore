@@ -1,4 +1,4 @@
-// src/types/estructuras.ts
+// src/types/Estructuras.ts
 
 // Para los libros de ejemplo de la página de inicio (se mantiene por ahora)
 export interface Book {
@@ -18,13 +18,15 @@ export interface Categoria {
   imagen_url: string;
 }
 
-// Para los libros que vienen de tu API
+// Para los libros que vienen de tu API (CORREGIDO Y ACTUALIZADO)
 export interface LibroAPI {
   id: number;
+  isbn: string;           // <-- AÑADIDO
   titulo: string;
   autor: string;
   editorial: string;
   precio: string;
+  stock: number;          // <-- AÑADIDO Y CAMBIADO A TIPO number
   sinopsis: string;
   fecha_publicacion: string;
   id_categoria: number;

@@ -1,7 +1,7 @@
 // src/pages/TiendaPage.tsx
 
 import React, { useState, useEffect } from 'react';
-import type { Categoria, LibroAPI } from '../types/Estructuras';
+import type { Categoria, LibroAPI } from '../types/Estructuras'; // <-- CORREGIDO
 import CategoriaCard from '../components/tienda/CategoriaCard';
 import LibroCard from '../components/tienda/LibroCard';
 

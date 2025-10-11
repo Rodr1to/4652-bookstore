@@ -1,8 +1,7 @@
-// src/pages/LibroDetallesPage.tsx
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import type { LibroAPI } from '../types/Estructuras'; // <-- CORREGIDO
+import type { LibroAPI } from '../types/Estructuras';
+import { useCarrito } from '../context/CarritoContext';
 
 const API_BASE_URL = 'https://rovalverde.alwaysdata.net/';
 
@@ -11,6 +10,7 @@ const LibroDetallesPage: React.FC = () => {
   const [libro, setLibro] = useState<LibroAPI | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { agregarAlCarrito } = useCarrito();
 
   useEffect(() => {
     const fetchLibroDetalles = async () => {
@@ -35,6 +35,16 @@ const LibroDetallesPage: React.FC = () => {
       fetchLibroDetalles();
     }
   }, [idLibro]);
+
+  const handleAgregarClick = () => {
+    if (libro) {
+      agregarAlCarrito(libro);
+      // Usaremos un método más moderno para notificar al usuario.
+      // Por ahora, un simple console.log para verificar.
+      console.log(`"${libro.titulo}" ha sido añadido al carrito!`);
+      alert(`"${libro.titulo}" ha sido añadido al carrito!`);
+    }
+  };
 
   if (loading) {
     return (
@@ -100,8 +110,12 @@ const LibroDetallesPage: React.FC = () => {
                 </dl>
             </div>
              <div className="mt-10">
-                <button className="w-full bg-brand-lime text-brand-dark font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition-transform text-lg">
-                    Añadir al carrito
+                <button 
+                  onClick={handleAgregarClick}
+                  className="w-full bg-brand-lime text-brand-dark font-bold py-4 px-8 rounded-lg shadow-lg hover:scale-105 transition-transform text-lg"
+                  disabled={libro.stock === 0}
+                >
+                  {libro.stock > 0 ? 'Añadir al carrito' : 'Agotado'}
                 </button>
             </div>
           </div>

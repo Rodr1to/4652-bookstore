@@ -32,3 +32,7 @@ export interface LibroAPI {
   id_categoria: number;
   url_portada: string;
 }
+
+export interface ItemCarrito extends LibroAPI {
+  cantidad: number;
+}

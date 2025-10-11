@@ -1,15 +1,18 @@
 // src/main.tsx
 
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { CarritoProvider } from './context/CarritoContext'; // <-- AÑADE ESTA LÍNEA
+import App from './App.tsx';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <CarritoProvider> {/* <-- ENVUELVE APP CON ESTO */}
+        <App />
+      </CarritoProvider>
     </BrowserRouter>
   </React.StrictMode>,
-)
+);

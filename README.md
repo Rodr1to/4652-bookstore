@@ -6,7 +6,8 @@ El diseño y la experiencia de usuario se basan en la plantilla de ThemeForest: 
 
 **[Ver el proyecto en vivo en Netlify](https://4652-project.netlify.app/)**
 
-![Captura de pantalla de la página de inicio del proyecto Tinta y Papel Store]
+<img width="1424" height="908" alt="image" src="https://github.com/user-attachments/assets/0d0c87d5-c218-465c-aa23-537e4a216a97" />
+
 ---
 
 ## 🚀 Características Principales

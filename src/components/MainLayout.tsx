@@ -7,7 +7,7 @@ import Footer from "./Footer";
 const MainLayout = () => {
   return (
     <>
-      <Header />
+      <Header/>
       <main>
         <Outlet /> {/* Aquí se renderizará cada página */}
       </main>

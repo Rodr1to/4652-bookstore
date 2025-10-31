@@ -17,7 +17,7 @@ const CatalogoPage: React.FC = () => {
 
   // --- Estados para Paginación ---
   const [numeroPagina, setNumeroPagina] = useState(1);
-  const [filasPagina] = useState(10); // Puedes cambiar esto (ej. 5)
+  const [filasPagina] = useState(10); 
   const [totalPaginas, setTotalPaginas] = useState(0);
 
   // --- Estados para Ordenamiento ---
@@ -57,7 +57,7 @@ const CatalogoPage: React.FC = () => {
   // --- useEffect se activa al cambiar página u ordenamiento ---
   useEffect(() => {
     leerServicio(numeroPagina, sortConfig.columna, sortConfig.orden);
-  }, [numeroPagina, sortConfig]); // Depende de la página y el orden
+  }, [numeroPagina, sortConfig]);
 
   // --- Manejador para cambiar el orden ---
   const handleSort = (columna: string) => {
@@ -66,7 +66,7 @@ const CatalogoPage: React.FC = () => {
       nuevoOrden = 'DESC';
     }
     setSortConfig({ columna, orden: nuevoOrden });
-    setNumeroPagina(1); // Reiniciar a la página 1 al reordenar
+    setNumeroPagina(1); 
   };
 
   // --- Manejadores para la paginación ---
@@ -82,11 +82,15 @@ const CatalogoPage: React.FC = () => {
     }
   };
 
-  // --- Función para renderizar el ícono de orden ---
+  // --- Función para renderizar el ícono de orden (CORREGIDA) ---
   const getSortIcon = (columna: string) => {
-    if (sortConfig.columna !== columna) return "<span></span>"; // Sin icono
-    if (sortConfig.orden === 'ASC') return <span className="ml-1">▲</span>; // Flecha arriba
-    return <span className="ml-1">▼</span>; // Flecha abajo
+    if (sortConfig.columna !== columna) {
+        return null; // <-- SOLUCIÓN: Devolver null en lugar de un string
+    }
+    if (sortConfig.orden === 'ASC') {
+        return <span className="ml-1">▲</span>;
+    }
+    return <span className="ml-1">▼</span>;
   };
 
   return (
@@ -151,7 +155,6 @@ const CatalogoPage: React.FC = () => {
                         </tbody>
                     </table>
                 </div>
-                {/* --- Controles de Paginación --- */}
                 {!loading && !error && (
                   <div className="flex justify-between items-center p-4 border-t border-gray-200">
                       <button 

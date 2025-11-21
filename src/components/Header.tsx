@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 const Header: React.FC = () => {
   const { totalItems } = useCarrito();
   const { isAuthenticated, user, logout } = useAuth();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para el menú desplegable
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   const activeLinkStyle = { color: '#0d4a3a', fontWeight: '700' };
 
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50 font-jakarta relative"> {/* relative añadido para el posicionamiento del menú */}
+    <header className="bg-white shadow-md sticky top-0 z-50 font-jakarta relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
@@ -33,18 +33,20 @@ const Header: React.FC = () => {
               <NavLink to="/" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-600 hover:text-brand-green transition-colors font-semibold">
                 Inicio
               </NavLink>
+              
+              {/* CORRECCIÓN: Tienda y Catálogo ahora son visibles SIEMPRE */}
               <NavLink to="/tienda" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-600 hover:text-brand-green transition-colors font-semibold">
                 Tienda
               </NavLink>
               
-              {/* Si está logueado, mostramos el enlace directo al Admin */}
-              {isAuthenticated ? (
+              <NavLink to="/catalogo" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-600 hover:text-brand-green transition-colors font-semibold">
+                Catálogo
+              </NavLink>
+              
+              {/* Solo el botón "Administrar" depende de la autenticación */}
+              {isAuthenticated && (
                   <NavLink to="/admin" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-brand-lime font-bold hover:text-brand-green transition-colors duration-300">
                     Administrar
-                  </NavLink>
-              ) : (
-                  <NavLink to="/catalogo" style={({ isActive }) => isActive ? activeLinkStyle : undefined} className="text-gray-600 hover:text-brand-green transition-colors font-semibold">
-                    Catálogo
                   </NavLink>
               )}
 

@@ -26,7 +26,7 @@ const CatalogoPage: React.FC = () => {
     orden: 'ASC'
   });
 
-  // --- Función para leer el servicio web (ahora es dinámica) ---
+  // --- Función para leer el servicio web ---
   const leerServicio = async (pagina: number, columna: string, orden: string) => {
     setLoading(true);
     setError(null);
@@ -82,10 +82,9 @@ const CatalogoPage: React.FC = () => {
     }
   };
 
-  // --- Función para renderizar el ícono de orden (CORREGIDA) ---
   const getSortIcon = (columna: string) => {
     if (sortConfig.columna !== columna) {
-        return null; // <-- SOLUCIÓN: Devolver null en lugar de un string
+        return null;
     }
     if (sortConfig.orden === 'ASC') {
         return <span className="ml-1">▲</span>;
@@ -104,7 +103,7 @@ const CatalogoPage: React.FC = () => {
                 Volver al inicio
             </Link>
 
-            <h1 className="text-4xl font-extrabold text-brand-dark mb-8">Catálogo Completo (Paginado)</h1>
+            <h1 className="text-4xl font-extrabold text-brand-dark mb-8">Catálogo de libros</h1>
             
             <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
                 {error && <p className="p-6 text-center text-red-500 font-semibold">{`Error al cargar los datos: ${error}`}</p>}
@@ -155,25 +154,50 @@ const CatalogoPage: React.FC = () => {
                         </tbody>
                     </table>
                 </div>
+
+                {/* --- SECCIÓN PAGINACIÓN CORREGIDA --- */}
                 {!loading && !error && (
-                  <div className="flex justify-between items-center p-4 border-t border-gray-200">
+                  <div className="flex justify-center items-center gap-2 p-4 border-t border-gray-200 flex-wrap">
+                      
+                      {/* Botón Anterior */}
                       <button 
                         onClick={paginaAnterior} 
                         disabled={numeroPagina === 1}
-                        className="bg-brand-dark text-white font-bold py-2 px-4 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="bg-brand-dark text-white font-bold py-2 px-4 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition"
                       >
                           Anterior
                       </button>
-                      <span className="text-sm text-brand-gray">
-                          Página <strong>{numeroPagina}</strong> de <strong>{totalPaginas}</strong>
-                      </span>
+
+                      {/* Botones Numéricos */}
+                      <div className="flex gap-1 mx-2 overflow-x-auto">
+                        {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((pagina) => (
+                          <button
+                            key={pagina}
+                            onClick={() => setNumeroPagina(pagina)}
+                            className={`w-10 h-10 rounded-lg font-bold transition-colors flex items-center justify-center ${
+                              numeroPagina === pagina
+                                ? 'bg-brand-green text-white shadow-md'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            }`}
+                          >
+                            {pagina}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Botón Siguiente */}
                       <button 
                         onClick={paginaSiguiente} 
                         disabled={numeroPagina === totalPaginas}
-                        className="bg-brand-dark text-white font-bold py-2 px-4 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="bg-brand-dark text-white font-bold py-2 px-4 rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition"
                       >
                           Siguiente
                       </button>
+
+                      {/* Texto informativo para móviles */}
+                      <div className="w-full text-center mt-2 text-sm text-brand-gray sm:hidden">
+                          Página <strong>{numeroPagina}</strong> de <strong>{totalPaginas}</strong>
+                      </div>
                   </div>
                 )}
             </div>

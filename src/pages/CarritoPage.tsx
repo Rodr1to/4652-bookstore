@@ -7,7 +7,7 @@ import { useCarrito } from '../context/CarritoContext';
 const API_BASE_URL = 'https://rovalverde.alwaysdata.net/';
 
 const CarritoPage: React.FC = () => {
-  const { items, eliminarDelCarrito, vaciarCarrito, totalPrecio } = useCarrito();
+  const { items, eliminarDelCarrito, vaciarCarrito, totalPrecio, incrementarCantidad, decrementarCantidad } = useCarrito();
 
   return (
     <div className="bg-brand-light-gray font-jakarta min-h-screen py-12">
@@ -27,6 +27,7 @@ const CarritoPage: React.FC = () => {
               <ul className="divide-y divide-gray-200">
                 {items.map(item => (
                   <li key={item.id} className="p-4 sm:p-6 flex items-start justify-between space-x-4">
+                    {/* Información del Producto (Izquierda) */}
                     <div className="flex items-start space-x-4">
                       <img
                         src={item.url_portada ? `${API_BASE_URL}${item.url_portada}` : 'https://placehold.co/100x150'}
@@ -39,12 +40,37 @@ const CarritoPage: React.FC = () => {
                         <p className="text-md font-bold text-brand-green mt-1">S/ {parseFloat(item.precio).toFixed(2)}</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm text-brand-gray">Cantidad: <span className="font-bold">{item.cantidad}</span></p>
-                      <p className="font-bold text-brand-dark mt-1">Subtotal: S/ {(parseFloat(item.precio) * item.cantidad).toFixed(2)}</p>
+
+                    {/* Controles (Derecha) */}
+                    <div className="text-right flex flex-col items-end space-y-2">
+                      {/* Controles de Cantidad */}
+                      <div className="flex items-center border border-gray-200 rounded-lg">
+                        <button
+                          onClick={() => decrementarCantidad(item.id)}
+                          disabled={item.cantidad <= 1} // Deshabilitado si es 1
+                          className="px-3 py-1 text-brand-dark font-bold hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          -
+                        </button>
+                        <span className="px-4 py-1 text-sm font-bold">{item.cantidad}</span>
+                        <button
+                          onClick={() => incrementarCantidad(item.id)}
+                          disabled={item.cantidad >= item.stock} // Deshabilitado si alcanza el stock
+                          className="px-3 py-1 text-brand-dark font-bold hover:bg-gray-100 disabled:opacity-50"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {/* Subtotal */}
+                      <p className="font-bold text-brand-dark text-sm">
+                        Subtotal: S/ {(parseFloat(item.precio) * item.cantidad).toFixed(2)}
+                      </p>
+
+                      {/* Botón Eliminar con X giratoria */}
                       <button
                         onClick={() => eliminarDelCarrito(item.id)}
-                        className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 group transition-transform duration-300 mt-2"
+                        className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 group transition-transform duration-300"
                         title="Eliminar item"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,7 +83,6 @@ const CarritoPage: React.FC = () => {
               </ul>
             </div>
             
-            {/* Sección de Totales y Vaciar Carrito */}
             <div className="mt-6 flex justify-between items-center">
               <button
                 onClick={vaciarCarrito}

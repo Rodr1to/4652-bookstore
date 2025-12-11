@@ -1,7 +1,5 @@
-// src/pages/TiendaPage.tsx
-
 import React, { useState, useEffect } from 'react';
-import type { Categoria, LibroAPI } from '../types/Estructuras'; // <-- CORREGIDO
+import type { Categoria, LibroAPI } from '../types/Estructuras';
 import CategoriaCard from '../components/tienda/CategoriaCard';
 import LibroCard from '../components/tienda/LibroCard';
 
@@ -16,7 +14,8 @@ const TiendaPage: React.FC = () => {
     const fetchCategorias = async () => {
       setLoadingCategorias(true);
       try {
-        const response = await fetch('/api/categorias.php');
+        // URL de Node.js
+        const response = await fetch('http://rodvalverde.alwaysdata.net/api/categorias');
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
@@ -30,7 +29,7 @@ const TiendaPage: React.FC = () => {
 
   const handleCategoriaClick = async (idCategoria: number) => {
     if (selectedCategoria === idCategoria) {
-      setSelectedCategoria(null); // Permite deseleccionar
+      setSelectedCategoria(null); 
       setLibros([]);
       return;
     }
@@ -38,7 +37,8 @@ const TiendaPage: React.FC = () => {
     setLoadingLibros(true);
     setLibros([]);
     try {
-      const response = await fetch(`/api/libros_categoria.php?id_categoria=${idCategoria}`);
+      // URL de Node.js
+      const response = await fetch(`http://rodvalverde.alwaysdata.net/api/libros/categoria/${idCategoria}`);
       const data = await response.json();
       setLibros(data);
     } catch (error) {

@@ -6,13 +6,12 @@ import type { LibroAPI } from '../types/Estructuras';
 const AdminLibrosPage: React.FC = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
-  
+   
   const [libros, setLibros] = useState<LibroAPI[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
-  
-  // Formulario inicial
+   
   const initialForm = {
     id: 0,
     isbn: '',
@@ -26,10 +25,9 @@ const AdminLibrosPage: React.FC = () => {
     fecha_publicacion: new Date().toISOString().split('T')[0],
     url_portada: ''
   };
-  
+   
   const [form, setForm] = useState(initialForm);
 
-  // Proteger la ruta: Si no está autenticado, va al login
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
@@ -41,8 +39,8 @@ const AdminLibrosPage: React.FC = () => {
   const cargarLibros = async () => {
     setLoading(true);
     try {
-      // Reutilizamos el servicio de paginación para traer una lista inicial grande
-      const response = await fetch('https://rovalverde.alwaysdata.net/libros_paginado.php?filas_pagina=50');
+      // URL de Node.js (Traemos 100 libros para el admin)
+      const response = await fetch('http://rodvalverde.alwaysdata.net/api/libros?filas_pagina=100');
       const data = await response.json();
       setLibros(data.libros);
     } catch (error) {
@@ -54,23 +52,25 @@ const AdminLibrosPage: React.FC = () => {
 
   const manejarSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const url = modoEdicion 
-      ? 'https://rovalverde.alwaysdata.net/libros_actualizar.php'
-      : 'https://rovalverde.alwaysdata.net/libros_insertar.php';
+    // URL de Node.js (mismo endpoint, cambia el método)
+    const url = 'http://rodvalverde.alwaysdata.net/api/libros';
+    const method = modoEdicion ? 'PUT' : 'POST';
 
     await fetch(url, {
-      method: 'POST',
+      method: method,
+      headers: { 'Content-Type': 'application/json' }, // Header JSON OBLIGATORIO
       body: JSON.stringify(form)
     });
     
     setModalOpen(false);
-    cargarLibros(); // Recargar la tabla para ver cambios
+    cargarLibros(); 
   };
 
   const eliminarLibro = async (id: number) => {
     if (confirm('¿Estás seguro de eliminar este libro de la base de datos?')) {
-      await fetch('https://rovalverde.alwaysdata.net/libros_eliminar.php', {
-        method: 'POST',
+      await fetch('http://rodvalverde.alwaysdata.net/api/libros', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
       });
       cargarLibros();
@@ -107,7 +107,6 @@ const AdminLibrosPage: React.FC = () => {
             </div>
         </div>
 
-        {/* TABLA CON SKELETON LOADING */}
         <div className="overflow-x-auto bg-white shadow-xl rounded-lg border border-gray-200">
             <table className="min-w-full">
                 <thead className="bg-brand-light-gray border-b">
@@ -122,7 +121,6 @@ const AdminLibrosPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                     {loading ? (
-                        // AQUÍ ESTÁ EL SKELETON LOADING
                         [...Array(5)].map((_, i) => (
                             <tr key={i} className="animate-pulse">
                                 <td className="px-6 py-4"><div className="h-4 bg-gray-200 rounded w-8"></div></td>
@@ -152,7 +150,6 @@ const AdminLibrosPage: React.FC = () => {
             </table>
         </div>
 
-        {/* MODAL PARA INSERTAR/ACTUALIZAR */}
         {modalOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
                 <div className="bg-white p-8 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">

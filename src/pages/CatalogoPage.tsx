@@ -1,10 +1,7 @@
-// src/pages/CatalogoPage.tsx
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { LibroAPI } from '../types/Estructuras';
 
-// Interfaz para la respuesta completa de la API
 interface ApiResponse {
   total_filas: number;
   libros: LibroAPI[];
@@ -15,23 +12,22 @@ const CatalogoPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // --- Estados para Paginación ---
   const [numeroPagina, setNumeroPagina] = useState(1);
   const [filasPagina] = useState(10); 
   const [totalPaginas, setTotalPaginas] = useState(0);
 
-  // --- Estados para Ordenamiento ---
   const [sortConfig, setSortConfig] = useState({
     columna: 'titulo',
     orden: 'ASC'
   });
 
-  // --- Función para leer el servicio web ---
   const leerServicio = async (pagina: number, columna: string, orden: string) => {
     setLoading(true);
     setError(null);
     try {
-      const url = `/api/libros_paginado.php?filas_pagina=${filasPagina}&numero_pagina=${pagina}&columna=${columna}&orden=${orden}`;
+      // URL de Node.js
+      const url = `http://rodvalverde.alwaysdata.net/api/libros?filas_pagina=${filasPagina}&numero_pagina=${pagina}&columna=${columna}&orden=${orden}`;
+      
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -54,12 +50,10 @@ const CatalogoPage: React.FC = () => {
     }
   };
 
-  // --- useEffect se activa al cambiar página u ordenamiento ---
   useEffect(() => {
     leerServicio(numeroPagina, sortConfig.columna, sortConfig.orden);
   }, [numeroPagina, sortConfig]);
 
-  // --- Manejador para cambiar el orden ---
   const handleSort = (columna: string) => {
     let nuevoOrden = 'ASC';
     if (columna === sortConfig.columna && sortConfig.orden === 'ASC') {
@@ -69,7 +63,6 @@ const CatalogoPage: React.FC = () => {
     setNumeroPagina(1); 
   };
 
-  // --- Manejadores para la paginación ---
   const paginaSiguiente = () => {
     if (numeroPagina < totalPaginas) {
       setNumeroPagina(numeroPagina + 1);
@@ -155,11 +148,8 @@ const CatalogoPage: React.FC = () => {
                     </table>
                 </div>
 
-                {/* --- SECCIÓN PAGINACIÓN CORREGIDA --- */}
                 {!loading && !error && (
                   <div className="flex justify-center items-center gap-2 p-4 border-t border-gray-200 flex-wrap">
-                      
-                      {/* Botón Anterior */}
                       <button 
                         onClick={paginaAnterior} 
                         disabled={numeroPagina === 1}
@@ -168,7 +158,6 @@ const CatalogoPage: React.FC = () => {
                           Anterior
                       </button>
 
-                      {/* Botones Numéricos */}
                       <div className="flex gap-1 mx-2 overflow-x-auto">
                         {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((pagina) => (
                           <button
@@ -185,7 +174,6 @@ const CatalogoPage: React.FC = () => {
                         ))}
                       </div>
 
-                      {/* Botón Siguiente */}
                       <button 
                         onClick={paginaSiguiente} 
                         disabled={numeroPagina === totalPaginas}
@@ -193,8 +181,6 @@ const CatalogoPage: React.FC = () => {
                       >
                           Siguiente
                       </button>
-
-                      {/* Texto informativo para móviles */}
                       <div className="w-full text-center mt-2 text-sm text-brand-gray sm:hidden">
                           Página <strong>{numeroPagina}</strong> de <strong>{totalPaginas}</strong>
                       </div>

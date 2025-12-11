@@ -14,8 +14,10 @@ const LoginPage: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch('https://rovalverde.alwaysdata.net/login.php', {
+      // URL de Node.js
+      const response = await fetch('http://rodvalverde.alwaysdata.net/api/login', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();

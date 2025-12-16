@@ -73,7 +73,7 @@ const CarritoPage: React.FC = () => {
                         className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 group transition-transform duration-300"
                         title="Eliminar item"
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="https://www.w3.org/2000/svg" className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>

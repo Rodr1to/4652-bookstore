@@ -26,7 +26,7 @@ const CatalogoPage: React.FC = () => {
     setError(null);
     try {
       // URL de Node.js
-      const url = `http://rodvalverde.alwaysdata.net/api/libros?filas_pagina=${filasPagina}&numero_pagina=${pagina}&columna=${columna}&orden=${orden}`;
+      const url = `https://rodvalverde.alwaysdata.net/api/libros?filas_pagina=${filasPagina}&numero_pagina=${pagina}&columna=${columna}&orden=${orden}`;
       
       const response = await fetch(url);
       

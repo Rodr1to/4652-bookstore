@@ -15,7 +15,7 @@ const TiendaPage: React.FC = () => {
       setLoadingCategorias(true);
       try {
         // URL de Node.js
-        const response = await fetch('http://rodvalverde.alwaysdata.net/api/categorias');
+        const response = await fetch('https://rodvalverde.alwaysdata.net/api/categorias');
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
@@ -38,7 +38,7 @@ const TiendaPage: React.FC = () => {
     setLibros([]);
     try {
       // URL de Node.js
-      const response = await fetch(`http://rodvalverde.alwaysdata.net/api/libros/categoria/${idCategoria}`);
+      const response = await fetch(`https://rodvalverde.alwaysdata.net/api/libros/categoria/${idCategoria}`);
       const data = await response.json();
       setLibros(data);
     } catch (error) {

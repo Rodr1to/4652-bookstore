@@ -40,7 +40,7 @@ const AdminLibrosPage: React.FC = () => {
     setLoading(true);
     try {
       // URL de Node.js (Traemos 100 libros para el admin)
-      const response = await fetch('http://rodvalverde.alwaysdata.net/api/libros?filas_pagina=100');
+      const response = await fetch('https://rodvalverde.alwaysdata.net/api/libros?filas_pagina=100');
       const data = await response.json();
       setLibros(data.libros);
     } catch (error) {
@@ -53,7 +53,7 @@ const AdminLibrosPage: React.FC = () => {
   const manejarSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // URL de Node.js (mismo endpoint, cambia el método)
-    const url = 'http://rodvalverde.alwaysdata.net/api/libros';
+    const url = 'https://rodvalverde.alwaysdata.net/api/libros';
     const method = modoEdicion ? 'PUT' : 'POST';
 
     await fetch(url, {
@@ -68,7 +68,7 @@ const AdminLibrosPage: React.FC = () => {
 
   const eliminarLibro = async (id: number) => {
     if (confirm('¿Estás seguro de eliminar este libro de la base de datos?')) {
-      await fetch('http://rodvalverde.alwaysdata.net/api/libros', {
+      await fetch('https://rodvalverde.alwaysdata.net/api/libros', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
